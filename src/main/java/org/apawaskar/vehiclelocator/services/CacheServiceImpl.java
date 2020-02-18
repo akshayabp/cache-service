@@ -7,6 +7,7 @@ import org.apawaskar.vehiclelocator.domain.Vehicle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -20,13 +21,19 @@ public class CacheServiceImpl implements CacheService {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Override
+	@CacheEvict("routeCache")
+	public void deleteRouteInfo(String routeId) {
+		
+	} 
 
 	@Override
 	@Cacheable("routeCache")
 	public RouteInfo getRouteInfo(String routeId) {
 		RouteInfo routeInfo = new RouteInfo();
 		
-		LOGGER.debug("Fetching route {} from microservices", routeId);		
+		LOGGER.info("Fetching route {} from microservices", routeId);		
 		routeInfo.setRouteId(routeId);
 
 		Route route = getRoute(routeId);
@@ -38,11 +45,12 @@ public class CacheServiceImpl implements CacheService {
 		Driver driver = getDriver(route.getDriverId());
 
 		routeInfo.setVehicle(vehicle);
-		routeInfo.setDriver(driver);
-		
+		routeInfo.setDriver(driver);		
+				
 		return routeInfo;
 	}
 	
+		
 	private Vehicle getVehicle(long vehicleId){
 		Vehicle vehicle = null;
 		
@@ -78,5 +86,7 @@ public class CacheServiceImpl implements CacheService {
 	
 	return restExchange.getBody();
 	}
+
+	
 
 }

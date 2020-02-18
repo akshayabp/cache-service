@@ -7,4 +7,6 @@ public interface CacheService {
 
 	
 	RouteInfo getRouteInfo(String routeId);
+	
+	void deleteRouteInfo(String routeId);
 }

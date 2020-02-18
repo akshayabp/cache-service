@@ -13,7 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
+//@Configuration
 public class CacheConfig{
 
 	//@Bean
@@ -26,7 +26,7 @@ public class CacheConfig{
 		return redisConnectionFactory;
 	}
 
-	@Bean
+	//@Bean
 	public RedisTemplate<String, RouteInfo> redisTemplate(RedisConnectionFactory cf) {
 		RedisTemplate<String, RouteInfo> redisTemplate = new RedisTemplate<String, RouteInfo>();
 		redisTemplate.setConnectionFactory(cf);
@@ -35,9 +35,9 @@ public class CacheConfig{
 		return redisTemplate;
 	}
 	
-	@Bean
-	  public CacheManager cacheManager(RedisTemplate<String, RouteInfo> redisTemplate) {
-	    RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-	    return cacheManager;
-	  }
+	/*
+	 * @Bean public CacheManager cacheManager(RedisTemplate<String, RouteInfo>
+	 * redisTemplate) { RedisCacheManager cacheManager = new
+	 * RedisCacheManager(redisTemplate); return cacheManager; }
+	 */
 }

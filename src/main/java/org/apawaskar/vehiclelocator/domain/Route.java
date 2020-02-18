@@ -1,7 +1,14 @@
 package org.apawaskar.vehiclelocator.domain;
 
-public class Route {
+import java.io.Serializable;
+
+public class Route implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String routeId;
 	
 	private Location source;
